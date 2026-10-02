@@ -1,0 +1,28 @@
+# Local Python environment
+.venv/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Datasets and generated outputs
+/data/
+/artifacts/
+
+# Local experiment tracking
+/mlruns/
+/mlartifacts/
