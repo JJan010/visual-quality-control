@@ -1,0 +1,417 @@
+[
+  {
+    "path": "test/broken_large/000.png",
+    "category": "broken_large",
+    "defect_pixels": 7131
+  },
+  {
+    "path": "test/broken_large/001.png",
+    "category": "broken_large",
+    "defect_pixels": 6192
+  },
+  {
+    "path": "test/broken_large/002.png",
+    "category": "broken_large",
+    "defect_pixels": 10184
+  },
+  {
+    "path": "test/broken_large/003.png",
+    "category": "broken_large",
+    "defect_pixels": 17955
+  },
+  {
+    "path": "test/broken_large/004.png",
+    "category": "broken_large",
+    "defect_pixels": 2678
+  },
+  {
+    "path": "test/broken_large/005.png",
+    "category": "broken_large",
+    "defect_pixels": 2685
+  },
+  {
+    "path": "test/broken_large/006.png",
+    "category": "broken_large",
+    "defect_pixels": 10013
+  },
+  {
+    "path": "test/broken_large/007.png",
+    "category": "broken_large",
+    "defect_pixels": 10595
+  },
+  {
+    "path": "test/broken_large/008.png",
+    "category": "broken_large",
+    "defect_pixels": 8536
+  },
+  {
+    "path": "test/broken_large/009.png",
+    "category": "broken_large",
+    "defect_pixels": 5743
+  },
+  {
+    "path": "test/broken_large/010.png",
+    "category": "broken_large",
+    "defect_pixels": 7291
+  },
+  {
+    "path": "test/broken_large/011.png",
+    "category": "broken_large",
+    "defect_pixels": 4898
+  },
+  {
+    "path": "test/broken_large/012.png",
+    "category": "broken_large",
+    "defect_pixels": 5689
+  },
+  {
+    "path": "test/broken_large/013.png",
+    "category": "broken_large",
+    "defect_pixels": 8838
+  },
+  {
+    "path": "test/broken_large/014.png",
+    "category": "broken_large",
+    "defect_pixels": 3094
+  },
+  {
+    "path": "test/broken_large/015.png",
+    "category": "broken_large",
+    "defect_pixels": 6117
+  },
+  {
+    "path": "test/broken_large/016.png",
+    "category": "broken_large",
+    "defect_pixels": 9615
+  },
+  {
+    "path": "test/broken_large/017.png",
+    "category": "broken_large",
+    "defect_pixels": 9222
+  },
+  {
+    "path": "test/broken_large/018.png",
+    "category": "broken_large",
+    "defect_pixels": 8602
+  },
+  {
+    "path": "test/broken_large/019.png",
+    "category": "broken_large",
+    "defect_pixels": 8275
+  },
+  {
+    "path": "test/broken_small/000.png",
+    "category": "broken_small",
+    "defect_pixels": 580
+  },
+  {
+    "path": "test/broken_small/001.png",
+    "category": "broken_small",
+    "defect_pixels": 973
+  },
+  {
+    "path": "test/broken_small/002.png",
+    "category": "broken_small",
+    "defect_pixels": 2390
+  },
+  {
+    "path": "test/broken_small/003.png",
+    "category": "broken_small",
+    "defect_pixels": 5284
+  },
+  {
+    "path": "test/broken_small/004.png",
+    "category": "broken_small",
+    "defect_pixels": 2105
+  },
+  {
+    "path": "test/broken_small/005.png",
+    "category": "broken_small",
+    "defect_pixels": 988
+  },
+  {
+    "path": "test/broken_small/006.png",
+    "category": "broken_small",
+    "defect_pixels": 1767
+  },
+  {
+    "path": "test/broken_small/007.png",
+    "category": "broken_small",
+    "defect_pixels": 1370
+  },
+  {
+    "path": "test/broken_small/008.png",
+    "category": "broken_small",
+    "defect_pixels": 1400
+  },
+  {
+    "path": "test/broken_small/009.png",
+    "category": "broken_small",
+    "defect_pixels": 1535
+  },
+  {
+    "path": "test/broken_small/010.png",
+    "category": "broken_small",
+    "defect_pixels": 3003
+  },
+  {
+    "path": "test/broken_small/011.png",
+    "category": "broken_small",
+    "defect_pixels": 1262
+  },
+  {
+    "path": "test/broken_small/012.png",
+    "category": "broken_small",
+    "defect_pixels": 5117
+  },
+  {
+    "path": "test/broken_small/013.png",
+    "category": "broken_small",
+    "defect_pixels": 2119
+  },
+  {
+    "path": "test/broken_small/014.png",
+    "category": "broken_small",
+    "defect_pixels": 1179
+  },
+  {
+    "path": "test/broken_small/015.png",
+    "category": "broken_small",
+    "defect_pixels": 1089
+  },
+  {
+    "path": "test/broken_small/016.png",
+    "category": "broken_small",
+    "defect_pixels": 1338
+  },
+  {
+    "path": "test/broken_small/017.png",
+    "category": "broken_small",
+    "defect_pixels": 1650
+  },
+  {
+    "path": "test/broken_small/018.png",
+    "category": "broken_small",
+    "defect_pixels": 3745
+  },
+  {
+    "path": "test/broken_small/019.png",
+    "category": "broken_small",
+    "defect_pixels": 1836
+  },
+  {
+    "path": "test/broken_small/020.png",
+    "category": "broken_small",
+    "defect_pixels": 2289
+  },
+  {
+    "path": "test/broken_small/021.png",
+    "category": "broken_small",
+    "defect_pixels": 1218
+  },
+  {
+    "path": "test/contamination/000.png",
+    "category": "contamination",
+    "defect_pixels": 4740
+  },
+  {
+    "path": "test/contamination/001.png",
+    "category": "contamination",
+    "defect_pixels": 4700
+  },
+  {
+    "path": "test/contamination/002.png",
+    "category": "contamination",
+    "defect_pixels": 1201
+  },
+  {
+    "path": "test/contamination/003.png",
+    "category": "contamination",
+    "defect_pixels": 1727
+  },
+  {
+    "path": "test/contamination/004.png",
+    "category": "contamination",
+    "defect_pixels": 1360
+  },
+  {
+    "path": "test/contamination/005.png",
+    "category": "contamination",
+    "defect_pixels": 8062
+  },
+  {
+    "path": "test/contamination/006.png",
+    "category": "contamination",
+    "defect_pixels": 10016
+  },
+  {
+    "path": "test/contamination/007.png",
+    "category": "contamination",
+    "defect_pixels": 3649
+  },
+  {
+    "path": "test/contamination/008.png",
+    "category": "contamination",
+    "defect_pixels": 10818
+  },
+  {
+    "path": "test/contamination/009.png",
+    "category": "contamination",
+    "defect_pixels": 9048
+  },
+  {
+    "path": "test/contamination/010.png",
+    "category": "contamination",
+    "defect_pixels": 7539
+  },
+  {
+    "path": "test/contamination/011.png",
+    "category": "contamination",
+    "defect_pixels": 9760
+  },
+  {
+    "path": "test/contamination/012.png",
+    "category": "contamination",
+    "defect_pixels": 9910
+  },
+  {
+    "path": "test/contamination/013.png",
+    "category": "contamination",
+    "defect_pixels": 3342
+  },
+  {
+    "path": "test/contamination/014.png",
+    "category": "contamination",
+    "defect_pixels": 454
+  },
+  {
+    "path": "test/contamination/015.png",
+    "category": "contamination",
+    "defect_pixels": 2727
+  },
+  {
+    "path": "test/contamination/016.png",
+    "category": "contamination",
+    "defect_pixels": 9892
+  },
+  {
+    "path": "test/contamination/017.png",
+    "category": "contamination",
+    "defect_pixels": 5470
+  },
+  {
+    "path": "test/contamination/018.png",
+    "category": "contamination",
+    "defect_pixels": 375
+  },
+  {
+    "path": "test/contamination/019.png",
+    "category": "contamination",
+    "defect_pixels": 2183
+  },
+  {
+    "path": "test/contamination/020.png",
+    "category": "contamination",
+    "defect_pixels": 9821
+  },
+  {
+    "path": "test/good/000.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/001.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/002.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/003.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/004.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/005.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/006.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/007.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/008.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/009.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/010.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/011.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/012.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/013.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/014.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/015.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/016.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/017.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/018.png",
+    "category": "good",
+    "defect_pixels": 0
+  },
+  {
+    "path": "test/good/019.png",
+    "category": "good",
+    "defect_pixels": 0
+  }
+]

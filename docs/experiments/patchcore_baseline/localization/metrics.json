@@ -1,0 +1,23 @@
+{
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "test_images": 83,
+  "evaluation_resolution": [
+    256,
+    256
+  ],
+  "aggregation": "pooled pixels from all test images",
+  "score": "raw anomalib anomaly_map",
+  "per_image_map_normalization": false,
+  "mask_resize": "PIL NEAREST",
+  "pixel_threshold": null,
+  "total_pixels": 5439488,
+  "defect_pixels": 314384,
+  "normal_pixels": 5125104,
+  "defect_pixel_fraction": 0.05779661615210843,
+  "pixel_auroc": 0.9847353600690225,
+  "pixel_average_precision": 0.7591868179510708,
+  "metric_library": {
+    "scikit-learn": "1.7.2",
+    "numpy": "2.2.6"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "selection_rule": "minimum score per defect category; maximum for good",
+  "examples": [
+    {
+      "path": "test/broken_large/011.png",
+      "category": "broken_large",
+      "is_anomaly": "1",
+      "score": "54.91307830810547",
+      "predicted_anomaly": "1"
+    },
+    {
+      "path": "test/broken_small/000.png",
+      "category": "broken_small",
+      "is_anomaly": "1",
+      "score": "46.66765213012695",
+      "predicted_anomaly": "1"
+    },
+    {
+      "path": "test/contamination/003.png",
+      "category": "contamination",
+      "is_anomaly": "1",
+      "score": "41.24492645263672",
+      "predicted_anomaly": "1"
+    },
+    {
+      "path": "test/good/017.png",
+      "category": "good",
+      "is_anomaly": "0",
+      "score": "31.416093826293945",
+      "predicted_anomaly": "0"
+    }
+  ],
+  "map_color_limits": [
+    0.0,
+    52.656639099121094
+  ],
+  "mask_resize": "nearest",
+  "image_threshold": 32.44375991821289
+}

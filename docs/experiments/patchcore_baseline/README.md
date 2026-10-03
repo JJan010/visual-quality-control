@@ -71,7 +71,7 @@ PatchCore outperformed the pixel-reconstruction autoencoder baselines
 on this bottle test set.
 
 The result covers image-level classification for one dataset category.
-Pixel-level localization quality has not yet been evaluated.
+Pixel-level localization was subsequently evaluated: AUROC 0.984735 and Average Precision 0.759187 at 256 x 256. See localization/README.md for the protocol and limitations.
 
 The test set was previously inspected during autoencoder experiments.
 This is an exploratory benchmark, not an untouched final holdout.
