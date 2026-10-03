@@ -7,3 +7,4 @@ scikit-learn==1.7.2
 onnx==1.23.1
 onnxscript==0.7.2
 onnxruntime-gpu==1.23.2
+tensorrt-cu12==10.13.3.9.post1

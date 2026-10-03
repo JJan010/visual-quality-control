@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "engine_sha256": "2333cd786a01d87ffbe69207b4d01dfbebb8fddfbfc5d3f9d3c840d27a2c7eca",
+  "tensorrt_version": "10.13.3.9.post1",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "torch_precision": "ieee",
+  "ort_use_tf32": false,
+  "tensorrt_precision": "fp32_tf32_off",
+  "blur_backend": "original_2d",
+  "threshold": 32.44375991821289,
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "execution": "dedicated CUDA stream, synchronized before return",
+  "results": [
+    {
+      "batch_size": 1,
+      "checked_images": 83,
+      "comparisons": {
+        "pytorch": {
+          "max_score_difference": 0.000152587890625,
+          "max_map_difference": 0.0004978179931640625,
+          "changed_decisions": 0
+        },
+        "onnx": {
+          "max_score_difference": 6.103515625e-05,
+          "max_map_difference": 0.00027751922607421875,
+          "changed_decisions": 0
+        }
+      },
+      "changed_decisions_vs_saved": 0
+    },
+    {
+      "batch_size": 8,
+      "checked_images": 83,
+      "comparisons": {
+        "pytorch": {
+          "max_score_difference": 0.0001354217529296875,
+          "max_map_difference": 0.00044155120849609375,
+          "changed_decisions": 0
+        },
+        "onnx": {
+          "max_score_difference": 6.866455078125e-05,
+          "max_map_difference": 0.00028228759765625,
+          "changed_decisions": 0
+        }
+      },
+      "changed_decisions_vs_saved": 0
+    }
+  ]
+}
