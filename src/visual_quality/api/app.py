@@ -4,6 +4,7 @@ import asyncio
 import logging
 import math
 import os
+from time import perf_counter
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from io import BytesIO
@@ -15,6 +16,11 @@ from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel
 
 from visual_quality.inference.runtime import load_predictor
+from visual_quality.api.presentation import (
+    Timings, Visualization, create_visualization,
+)
+from visual_quality.api.web import install_ui
+from visual_quality.api.localization import load_localization_calibration
 
 
 LOGGER = logging.getLogger("uvicorn.error")
@@ -42,6 +48,8 @@ class PredictionResponse(BaseModel):
     backend: str
     blur_backend: str
     checkpoint_sha256: str
+    timings: Timings
+    visualization: Visualization | None = None
 
 
 class ModelWorker:
@@ -54,6 +62,7 @@ class ModelWorker:
         )
         self.predictor = None
         self.metadata = {}
+        self.localization = None
         self.busy = False
 
     def load(self, config_path: str) -> None:
@@ -61,6 +70,12 @@ class ModelWorker:
         torch.cuda.set_device(0)
         self.predictor = load_predictor(config_path)
         self.metadata = self.predictor.runtime_metadata()
+        calibration_path = os.environ.get("VQC_LOCALIZATION_CALIBRATION")
+        if calibration_path:
+            self.localization = load_localization_calibration(
+                calibration_path, self.predictor, config_path
+            )
+            LOGGER.info("Localization threshold loaded: %.8f", self.localization.threshold)
         LOGGER.info(
             "Model loaded: backend=%s, blur=%s",
             self.metadata["backend"],
@@ -72,7 +87,10 @@ class ModelWorker:
             torch.cuda.synchronize(0)
             self.predictor = None
 
-    def predict_sync(self, data: bytes) -> PredictionResponse:
+    def predict_sync(
+        self, data: bytes, include_visualization: bool = False
+    ) -> PredictionResponse:
+        preprocessing_started = perf_counter()
         # Błędy odczytu obrazu oddzielamy od błędów modelu.
         try:
             with Image.open(BytesIO(data)) as image:
@@ -107,13 +125,33 @@ class ModelWorker:
                 "The uploaded file is not a readable image."
             ) from error
 
+        preprocessing_ms = (perf_counter() - preprocessing_started) * 1000
+        torch.cuda.synchronize(0)
+        inference_started = perf_counter()
         prediction = self.predictor.predict_batch(tensor.unsqueeze(0))
 
         score = float(prediction.scores.detach().cpu().item())
         is_anomaly = bool(prediction.labels.detach().cpu().item())
 
+        anomaly_map = None
+        if include_visualization:
+            anomaly_map = (
+                prediction.anomaly_maps.detach().cpu().numpy()[0, 0]
+            )
+        torch.cuda.synchronize(0)
+        inference_ms = (perf_counter() - inference_started) * 1000
+
         if not math.isfinite(score):
             raise RuntimeError("Model returned a non-finite score.")
+
+        visualization = None
+        visualization_ms = 0.0
+        if include_visualization:
+            visualization_started = perf_counter()
+            visualization = create_visualization(
+                tensor.permute(1, 2, 0).numpy(), anomaly_map, self.localization
+            )
+            visualization_ms = (perf_counter() - visualization_started) * 1000
 
         return PredictionResponse(
             request_id=str(uuid4()),
@@ -126,6 +164,12 @@ class ModelWorker:
             backend=self.metadata["backend"],
             blur_backend=self.metadata["blur_backend"],
             checkpoint_sha256=self.metadata["checkpoint_sha256"],
+            timings=Timings(
+                preprocessing_ms=preprocessing_ms,
+                inference_ms=inference_ms,
+                visualization_ms=visualization_ms,
+            ),
+            visualization=visualization,
         )
 
     def finished(self, future: asyncio.Future) -> None:
@@ -134,7 +178,9 @@ class ModelWorker:
         if not future.cancelled():
             future.exception()
 
-    async def predict(self, data: bytes) -> PredictionResponse:
+    async def predict(
+        self, data: bytes, include_visualization: bool = False
+    ) -> PredictionResponse:
         if self.busy:
             raise HTTPException(
                 status_code=429,
@@ -149,7 +195,7 @@ class ModelWorker:
 
         try:
             future = loop.run_in_executor(
-                self.executor, self.predict_sync, data
+                self.executor, self.predict_sync, data, include_visualization
             )
         except BaseException:
             self.busy = False
@@ -192,6 +238,9 @@ app = FastAPI(
 )
 
 
+install_ui(app)
+
+
 @app.get("/health")
 async def health(request: Request):
     worker = request.app.state.worker
@@ -205,7 +254,9 @@ async def health(request: Request):
 
 
 @app.post("/predict", response_model=PredictionResponse)
-async def predict(request: Request, file: UploadFile):
+async def predict(
+    request: Request, file: UploadFile, include_visualization: bool = False
+):
     try:
         # Odczytujemy najwyżej limit + 1 bajt, aby wykryć przekroczenie.
         data = await file.read(MAX_FILE_BYTES + 1)
@@ -221,7 +272,7 @@ async def predict(request: Request, file: UploadFile):
         )
 
     try:
-        return await request.app.state.worker.predict(data)
+        return await request.app.state.worker.predict(data, include_visualization)
     except ImageInputError as error:
         raise HTTPException(
             status_code=error.status_code,

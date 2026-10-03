@@ -89,8 +89,9 @@ The decision rule is:
 
 Scores are not probabilities.
 
-This version returns classification results only. It does not expose
-anomaly maps through HTTP or persist prediction history.
+The default response contains classification results and timing measurements.
+Use include_visualization=true to include the resized input and heatmap PNGs.
+Prediction history is not persisted. See ../gui.md for the inspection UI.
 
 ## HTTP status codes
 

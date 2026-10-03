@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "calibration_sha256": "31740cc81ae428fdfa02eef38caa1939dfb60cd464a352de7ed2b4aaa835dade",
+  "localization_threshold": 31.181997299194336,
+  "results": [
+    {
+      "image": "broken_large/011.png",
+      "image_is_anomaly": true,
+      "region_pixels": 8275,
+      "region_fraction": 0.1262664794921875,
+      "score_difference": 0.0
+    },
+    {
+      "image": "good/017.png",
+      "image_is_anomaly": false,
+      "region_pixels": 0,
+      "region_fraction": 0.0,
+      "score_difference": 0.0
+    }
+  ]
+}

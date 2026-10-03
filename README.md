@@ -36,3 +36,14 @@ Dataset files are not included in this repository.
 - docs/ - documentation and reports
 - data/ - local datasets, excluded from Git
 - artifacts/ - generated outputs, excluded from Git
+
+## Inspection workspace
+
+The local web interface supports image upload, anomaly classification,
+timing measurements, heatmap overlays and calibrated predicted-region
+contours. Reports, overlays and binary region masks can be downloaded.
+
+- [GUI usage and architecture](docs/inference/gui.md)
+- [Predicted regions and startup with localization](docs/inference/predicted_regions.md)
+- [Verification results](docs/inference/gui_validation/README.md)
+- [API documentation](docs/inference/api/README.md)

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Visual Quality · Inspection workspace</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/styles.css?v=2">
+  <script src="/assets/app.js?v=2" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="Visual Quality home"><span class="brand-mark">VQ<span>•</span></span><span>Visual Quality<small>INSPECTION WORKSPACE</small></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <nav aria-label="Main navigation"><a class="nav-active" href="/" aria-current="page"><span aria-hidden="true">▣</span> Image inspection</a><a href="/docs" target="_blank" rel="noopener"><span aria-hidden="true">↗</span> API documentation</a></nav>
+  <div class="sidebar-bottom"><span class="sidebar-dot"></span> LOCAL WORKSPACE<p>Inspect one image.<br>Understand the result.</p><span class="version">Visual Quality Control / v0.1</span></div>
+</aside>
+<div class="workspace">
+  <header class="topbar"><span>Workspace <span class="slash">/</span> <strong>Image inspection</strong></span><span id="connection" class="connection" role="status">Connecting…</span></header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">VISUAL ANOMALY DETECTION</div><h1>A closer look at quality.</h1><p>Upload an image to detect anomalies and explore where they appear.</p></div><span class="project-tag">MVTec AD <span>/</span> Bottle</span></div>
+    <div class="main-grid">
+      <section class="card input-card" aria-labelledby="input-title">
+        <div class="section-heading"><span class="step">01</span><h2 id="input-title">Select an image</h2></div>
+        <label id="drop-zone" class="drop-zone" for="file-input">
+          <input id="file-input" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg">
+          <span class="upload-symbol" aria-hidden="true">↑</span><strong>Drop your image here</strong><span>or <span class="browse">browse files</span></span><small>PNG or JPG · Up to 10 MiB</small>
+        </label>
+        <div id="file-info" class="file-info" hidden><span class="file-icon" aria-hidden="true">▧</span><div><strong id="file-name"></strong><small id="file-size"></small></div><button id="clear-file" class="icon-button" aria-label="Remove selected image" title="Remove image">×</button></div>
+        <button id="run" class="primary-button" disabled><span id="run-label">Run inspection</span><span aria-hidden="true">→</span></button>
+        <div id="message" class="message" role="alert" hidden></div>
+        <p class="input-note">Images are processed by your local server. This workspace does not save inspection history.</p>
+        <div class="model-summary"><span class="eyebrow">ACTIVE MODEL</span><strong>PatchCore <span>FP32</span></strong><dl><div><dt>Category</dt><dd>Bottle</dd></div><div><dt>Inference backend</dt><dd id="backend">—</dd></div><div><dt>Input resolution</dt><dd id="input-resolution">256 × 256</dd></div></dl></div>
+      </section>
+      <section class="card result-card" aria-labelledby="result-title">
+        <div class="section-heading"><span class="step">02</span><h2 id="result-title">Inspection result</h2><span id="result-badge" class="badge">Awaiting image</span></div>
+        <div id="result-content" aria-live="polite">
+          <div class="decision-line"><div><span class="eyebrow">IMAGE DECISION</span><h3 id="decision">Ready when you are.</h3><p id="decision-detail">Select an image to start your first inspection.</p></div><span id="decision-icon" class="decision-icon" aria-hidden="true">◎</span></div>
+          <div class="metrics"><div><span>Anomaly score</span><strong id="score">—</strong><small>Raw model output</small></div><div><span>Decision threshold</span><strong id="threshold">—</strong><small>Fixed calibration</small></div><div><span>Inference time</span><strong id="inference-time">—</strong><small>Includes device transfers</small></div></div>
+          <div class="score-chart"><div class="score-track" role="img" aria-label="Score relative to the decision threshold"><div id="score-fill"></div><div id="threshold-marker" hidden></div></div><div class="track-labels"><span id="score-min">0</span><span id="threshold-label">Score above threshold → anomaly</span><span id="score-max">—</span></div></div>
+        </div>
+        <div class="result-footer"><span id="request-time">No measurement yet</span><button id="download-report" class="text-button" disabled>Download report ↓</button></div>
+      </section>
+    </div>
+    <section class="card visualization-card" aria-labelledby="visual-title">
+      <div class="section-heading"><span class="step">03</span><h2 id="visual-title">Explore the inspection</h2><div class="opacity-control"><label for="opacity">Overlay opacity</label><input id="opacity" type="range" min="0" max="100" value="55" disabled><output id="opacity-value" for="opacity">55%</output></div></div>
+      <div class="image-grid"><figure><figcaption><strong>Original</strong><span id="original-caption">Image preview</span></figcaption><div class="image-stage"><div id="original-empty" class="image-placeholder"><span aria-hidden="true">▧</span>Your image will appear here</div><img id="original-image" alt="Selected image" hidden></div></figure><figure><figcaption><strong>Anomaly overlay</strong><span id="map-caption">Awaiting inspection</span></figcaption><div class="image-stage"><div id="overlay-empty" class="image-placeholder"><span aria-hidden="true">◎</span>Run an inspection to reveal the map</div><canvas id="overlay" width="256" height="256" aria-label="Anomaly heatmap over the resized input image" hidden></canvas></div></figure></div>
+      <div class="map-footer"><div class="legend"><span>Lower</span><div class="legend-gradient" aria-hidden="true"></div><span>Higher</span><span class="legend-title">Relative anomaly intensity</span></div><button id="download-overlay" class="text-button" disabled>Download overlay ↓</button></div>
+      <div class="region-controls"><label><input id="show-region" type="checkbox" checked disabled> <span class="contour-key" aria-hidden="true"></span> Show predicted region</label><button id="download-mask" class="text-button" disabled>Download region mask ↓</button></div>
+      <p id="region-summary" class="region-summary" aria-live="polite">Run an inspection to see predicted regions.</p>
+      <p class="map-note">Colors are scaled separately for each image. Bright regions show relative anomaly intensity, not defect probability or a segmentation mask. The turquoise contour uses a separate calibrated threshold on raw map values. It is a predicted region, not ground truth. Use the image decision above to interpret the result.</p>
+    </section>
+    <details class="card details-card"><summary>Inspection details <span>Timing &amp; model information</span></summary><dl id="technical-details"><div><dt>Status</dt><dd>No inspection yet</dd></div></dl><p>Inference timing includes normalization, GPU processing and output transfers. It excludes image decoding, visualization and HTTP overhead. First-call timing may include warmup costs.</p></details>
+    <footer class="page-footer"><span>Visual Quality Control</span><span>One image. A traceable decision.</span></footer>
+  </main>
+</div>
+</body>
+</html>
