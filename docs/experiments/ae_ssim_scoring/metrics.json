@@ -1,0 +1,37 @@
+{
+  "checkpoint_epoch": 250,
+  "score": "mean_one_minus_ssim",
+  "threshold": 0.11259081214666367,
+  "num_images": 83,
+  "tp": 20,
+  "fn": 43,
+  "fp": 7,
+  "tn": 13,
+  "recall": 0.31746031746031744,
+  "precision": 0.7407407407407407,
+  "false_positive_rate": 0.35,
+  "f1": 0.4444444444444444,
+  "image_auroc": 0.5349206349206349,
+  "per_category": {
+    "broken_large": {
+      "images": 20,
+      "alarms": 0,
+      "alarm_rate": 0.0
+    },
+    "broken_small": {
+      "images": 22,
+      "alarms": 6,
+      "alarm_rate": 0.2727272727272727
+    },
+    "contamination": {
+      "images": 21,
+      "alarms": 14,
+      "alarm_rate": 0.6666666666666666
+    },
+    "good": {
+      "images": 20,
+      "alarms": 7,
+      "alarm_rate": 0.35
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "checkpoint_epoch": 250,
+  "checkpoint_sha256": "3544a222f846716f2f0759b7fa019f69d444c41151444e4c9792e9d934aebd26",
+  "score": "mean_one_minus_ssim",
+  "image_size": 256,
+  "window_size": 11,
+  "sigma": 1.5,
+  "c1": 0.0001,
+  "c2": 0.0009,
+  "data_range": 1.0,
+  "channels": "RGB, channel-wise SSIM followed by mean",
+  "border": "valid windows, no padding",
+  "spatial_aggregation": "mean",
+  "torch_version": "2.11.0+cu128"
+}
