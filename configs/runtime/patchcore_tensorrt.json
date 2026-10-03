@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "backend": "tensorrt",
+  "device": "cuda:0",
+  "precision": "ieee",
+  "blur_backend": "separable_1d",
+  "run_dir": "../../artifacts/runs/patchcore_20261003_135714_557111",
+  "engine_dir": "../../artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738/tensorrt_fp32_20261003_170149_465700"
+}
