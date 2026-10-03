@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "checkpoint": "best.pt",
+  "checkpoint_epoch": 19,
+  "score": "mean_squared_reconstruction_error",
+  "image_size": 256,
+  "split": "validation",
+  "num_images": 42,
+  "quantile": 0.95,
+  "quantile_method": "higher",
+  "threshold": 0.002670697867870331,
+  "decision_rule": "score > threshold",
+  "mean_validation_score": 0.002263152071030899,
+  "false_alarms_on_calibration": 2,
+  "observed_alarm_rate_on_calibration": 0.047619047619047616,
+  "independent_of_checkpoint_selection": false
+}
