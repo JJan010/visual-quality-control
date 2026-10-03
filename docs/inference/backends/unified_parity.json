@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "scope": "Unified predictor, IEEE FP32, original_2d blur",
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "runtime": {
+    "pytorch": {
+      "backend": "pytorch",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "original_2d",
+      "blur_class": "GaussianBlur2d",
+      "feature_extractor_class": "TimmFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "pytorch_checkpoint",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c"
+      }
+    },
+    "onnx": {
+      "backend": "onnx",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "original_2d",
+      "blur_class": "GaussianBlur2d",
+      "feature_extractor_class": "OnnxCudaFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "onnx",
+        "directory": "/home/jakjan/projects/visual-quality-control/artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738",
+        "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c"
+      }
+    },
+    "tensorrt": {
+      "backend": "tensorrt",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "original_2d",
+      "blur_class": "GaussianBlur2d",
+      "feature_extractor_class": "TensorRTCudaFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "tensorrt_plan",
+        "directory": "/home/jakjan/projects/visual-quality-control/artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738/tensorrt_fp32_20261003_170149_465700",
+        "engine_sha256": "2333cd786a01d87ffbe69207b4d01dfbebb8fddfbfc5d3f9d3c840d27a2c7eca",
+        "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+        "tensorrt_version": "10.13.3.9.post1",
+        "optimization_profile": {
+          "min": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "opt": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "max": [
+            8,
+            3,
+            256,
+            256
+          ]
+        }
+      }
+    }
+  },
+  "results": [
+    {
+      "batch_size": 1,
+      "checked_images": 83,
+      "comparisons_vs_pytorch": {
+        "onnx": {
+          "max_score_difference": 0.000186920166015625,
+          "max_map_difference": 0.000518798828125,
+          "changed_decisions": 0
+        },
+        "tensorrt": {
+          "max_score_difference": 0.000152587890625,
+          "max_map_difference": 0.0004978179931640625,
+          "changed_decisions": 0
+        }
+      }
+    },
+    {
+      "batch_size": 8,
+      "checked_images": 83,
+      "comparisons_vs_pytorch": {
+        "onnx": {
+          "max_score_difference": 0.0001354217529296875,
+          "max_map_difference": 0.00039768218994140625,
+          "changed_decisions": 0
+        },
+        "tensorrt": {
+          "max_score_difference": 0.0001354217529296875,
+          "max_map_difference": 0.00044155120849609375,
+          "changed_decisions": 0
+        }
+      }
+    }
+  ]
+}
