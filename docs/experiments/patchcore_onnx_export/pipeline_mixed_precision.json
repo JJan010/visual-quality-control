@@ -1,0 +1,23 @@
+{
+  "status": "diagnostic_only",
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "checked_images": 83,
+  "batch_size": 8,
+  "blur_backend": "original_2d",
+  "threshold": 32.44375991821289,
+  "torch_matmul_precision": "none",
+  "torch_conv_precision": "tf32",
+  "ort_use_tf32": false,
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "max_score_difference": 0.058536529541015625,
+  "scores_outside_original_tolerance": 62,
+  "changed_decisions": 0,
+  "minimum_reference_threshold_margin": 1.0276660919189453,
+  "map_pixels": 5439488,
+  "max_map_difference": 0.18083572387695312,
+  "mean_map_difference": 0.014461776286630796,
+  "relative_map_l2_error": 0.0008809432263871099,
+  "map_pixels_outside_original_tolerance": 4650330
+}
