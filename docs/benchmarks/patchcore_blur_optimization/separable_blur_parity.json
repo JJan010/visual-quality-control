@@ -1,0 +1,20 @@
+{
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "checked_images": 83,
+  "checked_pixels": 5439488,
+  "reference_kernel_shape": [
+    1,
+    1,
+    33,
+    33
+  ],
+  "padding": "same",
+  "border_type": "reflect",
+  "map_rtol": 1e-05,
+  "map_atol": 0.0001,
+  "max_absolute_map_difference": 0.00019073486328125,
+  "mean_absolute_map_difference": 1.2578617534894743e-05,
+  "max_absolute_score_difference": 0.0,
+  "changed_decisions": 0,
+  "status": "passed"
+}
