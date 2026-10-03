@@ -57,9 +57,20 @@ def validate(model, loader, criterion, device):
     return total_loss / total_images
 
 
+import argparse
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--config",
+        default="autoencoder_baseline.json",
+        help="Nazwa pliku konfiguracji w katalogu configs.",
+    )
+    args = parser.parse_args()
+
     project_root = Path(__file__).resolve().parents[1]
-    config_path = project_root / "configs" / "autoencoder_baseline.json"
+    config_path = project_root / "configs" / args.config
     config = json.loads(config_path.read_text(encoding="utf-8"))
 
     if not torch.cuda.is_available():
