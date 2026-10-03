@@ -1,0 +1,170 @@
+{
+  "status": "completed",
+  "scope": "fixed-threshold mask evaluation; not a segmentation acceptance gate",
+  "created_at_utc": "2026-10-03T18:54:04.687977+00:00",
+  "script_sha256": "64eeb5a1d1deb37f5ac797442fc9e5ba5036b85392c5540399c933411a729f0e",
+  "calibration_sha256": "31740cc81ae428fdfa02eef38caa1939dfb60cd464a352de7ed2b4aaa835dade",
+  "localization_threshold": 31.181997299194336,
+  "pixel_decision_rule": "anomaly_map > threshold",
+  "threshold_tuned_on_test": false,
+  "batch_size": 1,
+  "evaluation_resolution": [
+    256,
+    256
+  ],
+  "ground_truth_resize": "Pillow.Image.resize / Resampling.NEAREST, then > 0",
+  "undefined_metric_policy": "null for zero denominator; empty/empty is not scored as perfect",
+  "macro_policy": "equal-weight mean over the 63 defective images only",
+  "micro_policy": "pooled pixel counts over all 83 test images, including normal-image FP",
+  "versions": {
+    "numpy": "2.2.6",
+    "pillow": "12.3.0"
+  },
+  "runtime": {
+    "backend": "tensorrt",
+    "device": "cuda:0",
+    "precision_policy": "ieee",
+    "torch_precision": {
+      "global": "ieee",
+      "matmul": "ieee",
+      "convolution": "ieee"
+    },
+    "blur_backend": "separable_1d",
+    "blur_class": "SeparableGaussianBlur2d",
+    "feature_extractor_class": "TensorRTCudaFeatureExtractor",
+    "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+    "threshold": 32.44375991821289,
+    "decision_rule": "score > threshold",
+    "image_size": 256,
+    "artifact": {
+      "format": "tensorrt_plan",
+      "directory": "/home/jakjan/projects/visual-quality-control/artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738/tensorrt_fp32_20261003_170149_465700",
+      "engine_sha256": "2333cd786a01d87ffbe69207b4d01dfbebb8fddfbfc5d3f9d3c840d27a2c7eca",
+      "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "tensorrt_version": "10.13.3.9.post1",
+      "optimization_profile": {
+        "min": [
+          1,
+          3,
+          256,
+          256
+        ],
+        "opt": [
+          1,
+          3,
+          256,
+          256
+        ],
+        "max": [
+          8,
+          3,
+          256,
+          256
+        ]
+      }
+    }
+  },
+  "test_images": 83,
+  "total_pixels": 5439488,
+  "defect_pixels": 314384,
+  "micro_all_test_pixels": {
+    "tp": 307032,
+    "fp": 357264,
+    "fn": 7352,
+    "tn": 4767840,
+    "iou": 0.4571323073991138,
+    "dice": 0.6274410430375608,
+    "precision": 0.4621915531630478,
+    "recall": 0.9766145859840195,
+    "pixel_false_positive_rate": 0.06970863420527662
+  },
+  "macro_defective_images": {
+    "images": 63,
+    "mean_iou": 0.4374397162574017,
+    "mean_dice": 0.5878161481937952
+  },
+  "normal_images": {
+    "images": 20,
+    "images_with_any_region": 0,
+    "region_alarm_rate": 0.0,
+    "false_positive_pixels": 0
+  },
+  "per_category": {
+    "broken_large": {
+      "images": 20,
+      "images_with_any_region": 20,
+      "micro_pixel_metrics": {
+        "tp": 152371,
+        "fp": 184694,
+        "fn": 982,
+        "tn": 972673,
+        "iou": 0.4507390984093928,
+        "dice": 0.6213923632493098,
+        "precision": 0.4520522747837954,
+        "recall": 0.9935964734957907,
+        "pixel_false_positive_rate": 0.15958118729841098
+      },
+      "macro_iou_defective_only": 0.4530896737759818,
+      "macro_dice_defective_only": 0.6212560894838998
+    },
+    "broken_small": {
+      "images": 22,
+      "images_with_any_region": 22,
+      "micro_pixel_metrics": {
+        "tp": 43971,
+        "fp": 79078,
+        "fn": 266,
+        "tn": 1318477,
+        "iou": 0.35657462595791267,
+        "dice": 0.5256985043578064,
+        "precision": 0.35734544774845795,
+        "recall": 0.9939869340145128,
+        "pixel_false_positive_rate": 0.056583104063883
+      },
+      "macro_iou_defective_only": 0.35041410647464943,
+      "macro_dice_defective_only": 0.5122676779219573
+    },
+    "contamination": {
+      "images": 21,
+      "images_with_any_region": 21,
+      "micro_pixel_metrics": {
+        "tp": 110690,
+        "fp": 93492,
+        "fn": 6104,
+        "tn": 1165970,
+        "iou": 0.5263783608989662,
+        "dice": 0.6897088878919296,
+        "precision": 0.5421143881439108,
+        "recall": 0.9477370412863675,
+        "pixel_false_positive_rate": 0.07423169575580685
+      },
+      "macro_iou_defective_only": 0.5137046812502087,
+      "macro_dice_defective_only": 0.6351146015356209
+    },
+    "good": {
+      "images": 20,
+      "images_with_any_region": 0,
+      "micro_pixel_metrics": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1310720,
+        "iou": null,
+        "dice": null,
+        "precision": null,
+        "recall": null,
+        "pixel_false_positive_rate": 0.0
+      },
+      "macro_iou_defective_only": null,
+      "macro_dice_defective_only": null
+    }
+  },
+  "image_classification": {
+    "tp": 63,
+    "fn": 0,
+    "fp": 0,
+    "tn": 20
+  },
+  "test_set_note": "This test set has been reused for engineering checks; it is not a new holdout."
+}
