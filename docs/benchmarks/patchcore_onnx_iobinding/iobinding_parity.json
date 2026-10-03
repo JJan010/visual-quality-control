@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "torch_precision": "ieee",
+  "ort_use_tf32": false,
+  "blur_backend": "original_2d",
+  "threshold": 32.44375991821289,
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "binding_checks": [
+    {
+      "batch_size": 1,
+      "layer": "layer2",
+      "max_difference": 0.0
+    },
+    {
+      "batch_size": 1,
+      "layer": "layer3",
+      "max_difference": 0.0
+    },
+    {
+      "batch_size": 3,
+      "layer": "layer2",
+      "max_difference": 0.0
+    },
+    {
+      "batch_size": 3,
+      "layer": "layer3",
+      "max_difference": 0.0
+    },
+    {
+      "batch_size": 8,
+      "layer": "layer2",
+      "max_difference": 0.0
+    },
+    {
+      "batch_size": 8,
+      "layer": "layer3",
+      "max_difference": 0.0
+    }
+  ],
+  "pipeline_checks": [
+    {
+      "batch_size": 1,
+      "checked_images": 83,
+      "max_score_difference": 0.000186920166015625,
+      "max_map_difference": 0.000518798828125,
+      "changed_decisions": 0,
+      "changed_decisions_vs_saved": 0
+    },
+    {
+      "batch_size": 8,
+      "checked_images": 83,
+      "max_score_difference": 0.0001354217529296875,
+      "max_map_difference": 0.00039768218994140625,
+      "changed_decisions": 0,
+      "changed_decisions_vs_saved": 0
+    }
+  ]
+}
