@@ -1,0 +1,12 @@
+{
+  "blur_backend": "original_2d",
+  "blur_class": "GaussianBlur2d",
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "checked_images": 83,
+  "preprocessing_exact_match": true,
+  "score_rtol": 0.0001,
+  "score_atol": 0.0001,
+  "max_absolute_score_difference": 0.0,
+  "changed_decisions": 0,
+  "anomaly_maps_shape_and_finiteness": "passed"
+}

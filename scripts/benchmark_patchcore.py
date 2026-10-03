@@ -25,6 +25,11 @@ def infer_to_cpu(predictor, images):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", required=True)
+    parser.add_argument(
+        "--blur-backend",
+        choices=("original_2d", "separable_1d"),
+        default="original_2d",
+    )
     parser.add_argument("--warmup", type=int, default=30)
     parser.add_argument("--iterations", type=int, default=100)
     args = parser.parse_args()
@@ -38,7 +43,11 @@ def main():
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
 
-    predictor = PatchcorePredictor(run_dir, device="cuda")
+    predictor = PatchcorePredictor(
+        run_dir,
+        device="cuda",
+        blur_backend=args.blur_backend,
+    )
     device = predictor.device
 
     split = json.loads(
@@ -61,6 +70,7 @@ def main():
     results = []
     latency_rows = []
 
+    print("Blur backend:", predictor.blur_backend, flush=True)
     print("GPU:", torch.cuda.get_device_name(device), flush=True)
     print("Warmup calls per batch size:", args.warmup, flush=True)
     print("Measured calls per batch size:", args.iterations, flush=True)
@@ -144,10 +154,12 @@ def main():
         print(f"Peak reserved: {result['peak_reserved_mib']:.2f} MiB")
 
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
-    output_dir = run_dir / "benchmarks" / f"pytorch_{timestamp}"
+    output_dir = run_dir / "benchmarks" / f"pytorch_{args.blur_backend}_{timestamp}"
     output_dir.mkdir(parents=True, exist_ok=False)
 
     report = {
+        "blur_backend": predictor.blur_backend,
+        "blur_class": type(predictor.model.anomaly_map_generator.blur).__name__,
         "checkpoint_sha256": predictor.checkpoint_sha256,
         "scope": "prepared CPU tensor to CPU scores, labels and anomaly maps",
         "excluded": [

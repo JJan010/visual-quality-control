@@ -75,5 +75,30 @@ image scores and decisions exactly on this test set, with small map differences.
 These are results from one short paired run on one hardware configuration.
 They do not establish sustained service throughput or a latency guarantee.
 
-The candidate is currently applied by experimental scripts.
-The default PatchcorePredictor still uses the original filter.
+## Runtime integration
+
+PatchcorePredictor supports explicit filter selection:
+
+    predictor = PatchcorePredictor(
+        run_dir,
+        device="cuda",
+        blur_backend="separable_1d",
+    )
+
+Available options:
+
+- original_2d: reference implementation and constructor default.
+- separable_1d: optimized implementation.
+
+The predictor check and benchmark scripts accept --blur-backend.
+Their reports record the selected backend and filter class.
+
+Both configuration paths were checked on all 83 test images:
+
+- Exact preprocessing match.
+- Maximum image-score difference: 0.
+- Changed decisions: 0.
+- Valid anomaly-map shapes and finite values.
+
+Pixel-wise map agreement was checked separately in the numerical
+validation experiment described above.

@@ -10,6 +10,7 @@ from PIL import Image
 from torchvision.transforms import v2
 
 from anomalib.models.image.patchcore.torch_model import PatchcoreModel
+from visual_quality.inference.filters import SeparableGaussianBlur2d
 
 
 def file_sha256(path: Path) -> str:
@@ -32,8 +33,17 @@ class PatchcorePrediction:
 class PatchcorePredictor:
     """Wczytuje zapisany eksperyment i wykonuje inferencję PatchCore."""
 
-    def __init__(self, run_dir: str | Path, device: str = "cuda"):
+    def __init__(
+        self,
+        run_dir: str | Path,
+        device: str = "cuda",
+        *,
+        blur_backend: str = "original_2d",
+    ):
         self.run_dir = Path(run_dir).resolve()
+        if blur_backend not in ("original_2d", "separable_1d"):
+            raise ValueError(f"Nieznany wariant wygładzania: {blur_backend}")
+        self.blur_backend = blur_backend
         self.device = torch.device(device)
 
         if self.device.type == "cuda" and not torch.cuda.is_available():
@@ -106,6 +116,22 @@ class PatchcorePredictor:
 
         if self.model.memory_bank.shape[0] == 0:
             raise RuntimeError("Bank wzorców jest pusty.")
+
+        # Najpierw wczytujemy pełny oryginalny checkpoint.
+        # Dopiero potem wybieramy implementację wykonawczą filtra.
+        if self.blur_backend == "separable_1d":
+            original = self.model.anomaly_map_generator.blur
+            if (
+                original.border_type != "reflect"
+                or original.padding != "same"
+                or original.channels != 1
+            ):
+                raise RuntimeError("Nieobsługiwana konfiguracja filtra.")
+
+            optimized = SeparableGaussianBlur2d(original.kernel)
+            optimized = optimized.to(self.device)
+            optimized.eval()
+            self.model.anomaly_map_generator.blur = optimized
 
     def prepare_image(self, image: Image.Image) -> torch.Tensor:
         """Zwraca tensor CPU o kształcie (3, H, W), przed normalizacją."""

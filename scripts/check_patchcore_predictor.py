@@ -15,6 +15,11 @@ from visual_quality.inference.patchcore import PatchcorePredictor
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", required=True)
+    parser.add_argument(
+        "--blur-backend",
+        choices=("original_2d", "separable_1d"),
+        default="original_2d",
+    )
     args = parser.parse_args()
 
     project_root = Path(__file__).resolve().parents[1]
@@ -23,7 +28,19 @@ def main():
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
 
-    predictor = PatchcorePredictor(run_dir, device="cuda")
+    predictor = PatchcorePredictor(
+        run_dir,
+        device="cuda",
+        blur_backend=args.blur_backend,
+    )
+
+    expected_class = {
+        "original_2d": "GaussianBlur2d",
+        "separable_1d": "SeparableGaussianBlur2d",
+    }[args.blur_backend]
+    actual_class = type(predictor.model.anomaly_map_generator.blur).__name__
+    if actual_class != expected_class:
+        raise RuntimeError(f"Wczytano niewłaściwy filtr: {actual_class}")
 
     metrics = json.loads(
         (run_dir / "evaluation/metrics.json").read_text(encoding="utf-8")
@@ -112,6 +129,8 @@ def main():
         raise RuntimeError(f"Liczba zmienionych decyzji: {label_changes}")
 
     report = {
+        "blur_backend": predictor.blur_backend,
+        "blur_class": type(predictor.model.anomaly_map_generator.blur).__name__,
         "checkpoint_sha256": predictor.checkpoint_sha256,
         "checked_images": len(actual_scores),
         "preprocessing_exact_match": True,
@@ -123,10 +142,12 @@ def main():
     }
     output_dir = run_dir / "verification"
     output_dir.mkdir(exist_ok=True)
-    (output_dir / "predictor_parity.json").write_text(
+    (output_dir / f"predictor_parity_{args.blur_backend}.json").write_text(
         json.dumps(report, indent=2) + "\n", encoding="utf-8"
     )
 
+    print("Blur backend:", predictor.blur_backend)
+    print("Blur class:", type(predictor.model.anomaly_map_generator.blur).__name__)
     print("Checked images:", len(actual_scores))
     print("Preprocessing: exact match")
     print(f"Maximum score difference: {max_error:.10f}")
