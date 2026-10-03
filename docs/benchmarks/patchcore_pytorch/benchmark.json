@@ -1,0 +1,412 @@
+{
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "scope": "prepared CPU tensor to CPU scores, labels and anomaly maps",
+  "excluded": [
+    "model loading",
+    "file reading and decoding",
+    "image resizing and conversion to tensor",
+    "batch assembly",
+    "HTTP, queueing and serialization"
+  ],
+  "execution": "sequential calls, no overlap between batches",
+  "input_memory": "pageable CPU memory, not pinned",
+  "precision": "float32, no autocast",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "torch": "2.11.0+cu128",
+  "torchvision": "0.26.0+cu128",
+  "anomalib": "2.6.2",
+  "timm": "1.0.30",
+  "cuda_runtime": "12.8",
+  "cpu_threads": 24,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": true,
+  "float32_matmul_precision": "highest",
+  "cudnn_allow_tf32": true,
+  "results": [
+    {
+      "batch_size": 1,
+      "warmup_calls": 30,
+      "measured_calls": 100,
+      "mean_batch_ms": 5.334511659912096,
+      "p50_batch_ms": 4.243109499839193,
+      "p95_batch_ms": 8.960119600487815,
+      "serial_images_per_second": 187.45858360659736,
+      "peak_allocated_mib": 143.89990234375,
+      "peak_reserved_mib": 164.0,
+      "input_batches": [
+        [
+          "test/broken_large/000.png"
+        ],
+        [
+          "test/broken_large/001.png"
+        ],
+        [
+          "test/broken_large/002.png"
+        ],
+        [
+          "test/broken_large/003.png"
+        ],
+        [
+          "test/broken_large/004.png"
+        ],
+        [
+          "test/broken_large/005.png"
+        ],
+        [
+          "test/broken_large/006.png"
+        ],
+        [
+          "test/broken_large/007.png"
+        ],
+        [
+          "test/broken_large/008.png"
+        ],
+        [
+          "test/broken_large/009.png"
+        ],
+        [
+          "test/broken_large/010.png"
+        ],
+        [
+          "test/broken_large/011.png"
+        ],
+        [
+          "test/broken_large/012.png"
+        ],
+        [
+          "test/broken_large/013.png"
+        ],
+        [
+          "test/broken_large/014.png"
+        ],
+        [
+          "test/broken_large/015.png"
+        ],
+        [
+          "test/broken_large/016.png"
+        ],
+        [
+          "test/broken_large/017.png"
+        ],
+        [
+          "test/broken_large/018.png"
+        ],
+        [
+          "test/broken_large/019.png"
+        ],
+        [
+          "test/broken_small/000.png"
+        ],
+        [
+          "test/broken_small/001.png"
+        ],
+        [
+          "test/broken_small/002.png"
+        ],
+        [
+          "test/broken_small/003.png"
+        ],
+        [
+          "test/broken_small/004.png"
+        ],
+        [
+          "test/broken_small/005.png"
+        ],
+        [
+          "test/broken_small/006.png"
+        ],
+        [
+          "test/broken_small/007.png"
+        ],
+        [
+          "test/broken_small/008.png"
+        ],
+        [
+          "test/broken_small/009.png"
+        ],
+        [
+          "test/broken_small/010.png"
+        ],
+        [
+          "test/broken_small/011.png"
+        ],
+        [
+          "test/broken_small/012.png"
+        ],
+        [
+          "test/broken_small/013.png"
+        ],
+        [
+          "test/broken_small/014.png"
+        ],
+        [
+          "test/broken_small/015.png"
+        ],
+        [
+          "test/broken_small/016.png"
+        ],
+        [
+          "test/broken_small/017.png"
+        ],
+        [
+          "test/broken_small/018.png"
+        ],
+        [
+          "test/broken_small/019.png"
+        ],
+        [
+          "test/broken_small/020.png"
+        ],
+        [
+          "test/broken_small/021.png"
+        ],
+        [
+          "test/contamination/000.png"
+        ],
+        [
+          "test/contamination/001.png"
+        ],
+        [
+          "test/contamination/002.png"
+        ],
+        [
+          "test/contamination/003.png"
+        ],
+        [
+          "test/contamination/004.png"
+        ],
+        [
+          "test/contamination/005.png"
+        ],
+        [
+          "test/contamination/006.png"
+        ],
+        [
+          "test/contamination/007.png"
+        ],
+        [
+          "test/contamination/008.png"
+        ],
+        [
+          "test/contamination/009.png"
+        ],
+        [
+          "test/contamination/010.png"
+        ],
+        [
+          "test/contamination/011.png"
+        ],
+        [
+          "test/contamination/012.png"
+        ],
+        [
+          "test/contamination/013.png"
+        ],
+        [
+          "test/contamination/014.png"
+        ],
+        [
+          "test/contamination/015.png"
+        ],
+        [
+          "test/contamination/016.png"
+        ],
+        [
+          "test/contamination/017.png"
+        ],
+        [
+          "test/contamination/018.png"
+        ],
+        [
+          "test/contamination/019.png"
+        ],
+        [
+          "test/contamination/020.png"
+        ],
+        [
+          "test/good/000.png"
+        ],
+        [
+          "test/good/001.png"
+        ],
+        [
+          "test/good/002.png"
+        ],
+        [
+          "test/good/003.png"
+        ],
+        [
+          "test/good/004.png"
+        ],
+        [
+          "test/good/005.png"
+        ],
+        [
+          "test/good/006.png"
+        ],
+        [
+          "test/good/007.png"
+        ],
+        [
+          "test/good/008.png"
+        ],
+        [
+          "test/good/009.png"
+        ],
+        [
+          "test/good/010.png"
+        ],
+        [
+          "test/good/011.png"
+        ],
+        [
+          "test/good/012.png"
+        ],
+        [
+          "test/good/013.png"
+        ],
+        [
+          "test/good/014.png"
+        ],
+        [
+          "test/good/015.png"
+        ],
+        [
+          "test/good/016.png"
+        ],
+        [
+          "test/good/017.png"
+        ],
+        [
+          "test/good/018.png"
+        ],
+        [
+          "test/good/019.png"
+        ]
+      ]
+    },
+    {
+      "batch_size": 8,
+      "warmup_calls": 30,
+      "measured_calls": 100,
+      "mean_batch_ms": 18.599853169889684,
+      "p50_batch_ms": 18.786933999763278,
+      "p95_batch_ms": 19.168429798628495,
+      "serial_images_per_second": 430.1109222168902,
+      "peak_allocated_mib": 242.1455078125,
+      "peak_reserved_mib": 394.0,
+      "input_batches": [
+        [
+          "test/broken_large/000.png",
+          "test/broken_large/001.png",
+          "test/broken_large/002.png",
+          "test/broken_large/003.png",
+          "test/broken_large/004.png",
+          "test/broken_large/005.png",
+          "test/broken_large/006.png",
+          "test/broken_large/007.png"
+        ],
+        [
+          "test/broken_large/008.png",
+          "test/broken_large/009.png",
+          "test/broken_large/010.png",
+          "test/broken_large/011.png",
+          "test/broken_large/012.png",
+          "test/broken_large/013.png",
+          "test/broken_large/014.png",
+          "test/broken_large/015.png"
+        ],
+        [
+          "test/broken_large/016.png",
+          "test/broken_large/017.png",
+          "test/broken_large/018.png",
+          "test/broken_large/019.png",
+          "test/broken_small/000.png",
+          "test/broken_small/001.png",
+          "test/broken_small/002.png",
+          "test/broken_small/003.png"
+        ],
+        [
+          "test/broken_small/004.png",
+          "test/broken_small/005.png",
+          "test/broken_small/006.png",
+          "test/broken_small/007.png",
+          "test/broken_small/008.png",
+          "test/broken_small/009.png",
+          "test/broken_small/010.png",
+          "test/broken_small/011.png"
+        ],
+        [
+          "test/broken_small/012.png",
+          "test/broken_small/013.png",
+          "test/broken_small/014.png",
+          "test/broken_small/015.png",
+          "test/broken_small/016.png",
+          "test/broken_small/017.png",
+          "test/broken_small/018.png",
+          "test/broken_small/019.png"
+        ],
+        [
+          "test/broken_small/020.png",
+          "test/broken_small/021.png",
+          "test/contamination/000.png",
+          "test/contamination/001.png",
+          "test/contamination/002.png",
+          "test/contamination/003.png",
+          "test/contamination/004.png",
+          "test/contamination/005.png"
+        ],
+        [
+          "test/contamination/006.png",
+          "test/contamination/007.png",
+          "test/contamination/008.png",
+          "test/contamination/009.png",
+          "test/contamination/010.png",
+          "test/contamination/011.png",
+          "test/contamination/012.png",
+          "test/contamination/013.png"
+        ],
+        [
+          "test/contamination/014.png",
+          "test/contamination/015.png",
+          "test/contamination/016.png",
+          "test/contamination/017.png",
+          "test/contamination/018.png",
+          "test/contamination/019.png",
+          "test/contamination/020.png",
+          "test/good/000.png"
+        ],
+        [
+          "test/good/001.png",
+          "test/good/002.png",
+          "test/good/003.png",
+          "test/good/004.png",
+          "test/good/005.png",
+          "test/good/006.png",
+          "test/good/007.png",
+          "test/good/008.png"
+        ],
+        [
+          "test/good/009.png",
+          "test/good/010.png",
+          "test/good/011.png",
+          "test/good/012.png",
+          "test/good/013.png",
+          "test/good/014.png",
+          "test/good/015.png",
+          "test/good/016.png"
+        ],
+        [
+          "test/good/017.png",
+          "test/good/018.png",
+          "test/good/019.png",
+          "test/broken_large/000.png",
+          "test/broken_large/001.png",
+          "test/broken_large/002.png",
+          "test/broken_large/003.png",
+          "test/broken_large/004.png"
+        ]
+      ]
+    }
+  ]
+}
