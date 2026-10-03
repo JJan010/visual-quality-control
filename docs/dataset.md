@@ -53,3 +53,38 @@ python scripts/preview_sample.py
 ```
 
 Output: artifacts/previews/bottle_broken_large_000.png
+
+## Recorded training/validation split
+
+Manifest: configs/splits/bottle_v1.json
+Generation script: scripts/create_split.py
+
+- Training: 167 normal images.
+- Validation: 42 normal images.
+- Split seed: 42.
+- No overlapping file paths.
+- The original test split is unchanged.
+
+The manifest records paths relative to the bottle dataset directory.
+Images are not moved or copied when generating the split.
+
+## Autoencoder input pipeline
+
+Implementation: src/visual_quality/data/bottle.py
+
+- Load images as RGB.
+- Resize to 256 x 256 with antialiasing.
+- Convert to float32 tensors with values in [0, 1].
+- Return the tensor and its relative source path.
+- Tensor layout: channels, height, width.
+
+DataLoader check: scripts/check_dataloader.py
+
+- Batch size: 8.
+- Shuffle training samples; keep validation order fixed.
+- Keep the last incomplete batch.
+- Use num_workers=0 initially.
+- Transfer image batches to CUDA.
+
+The first batch from each split passed shape, dtype and CUDA checks.
+This checks the data pipeline; it does not evaluate a trained model.

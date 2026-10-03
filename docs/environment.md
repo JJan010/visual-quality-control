@@ -75,3 +75,32 @@ After changes, run relevant functional checks and pip check.
 Then refresh requirements-frozen.txt and review its Git diff.
 
 The .venv directory is excluded from Git.
+
+## Install the project package
+
+After installing the dependencies, run from the repository root:
+
+```bash
+python -m pip install --no-deps -e .
+```
+
+This makes the visual_quality package importable.
+The editable installation uses the source files in this repository.
+
+Check the package and data pipeline:
+
+```bash
+python -c "import visual_quality; print(visual_quality.__file__)"
+python scripts/check_dataloader.py
+```
+
+The DataLoader check requires the downloaded bottle dataset
+and the committed split manifest.
+
+When refreshing the dependency snapshot, exclude editable packages:
+
+```bash
+python -m pip freeze --exclude-editable > requirements-frozen.txt
+```
+
+The local project is installed separately with the editable command above.
