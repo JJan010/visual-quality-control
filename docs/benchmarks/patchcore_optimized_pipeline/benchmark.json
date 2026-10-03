@@ -1,0 +1,291 @@
+{
+  "runtime": {
+    "pytorch_original": {
+      "backend": "pytorch",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "original_2d",
+      "blur_class": "GaussianBlur2d",
+      "feature_extractor_class": "TimmFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "pytorch_checkpoint",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c"
+      }
+    },
+    "tensorrt_original": {
+      "backend": "tensorrt",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "original_2d",
+      "blur_class": "GaussianBlur2d",
+      "feature_extractor_class": "TensorRTCudaFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "tensorrt_plan",
+        "directory": "/home/jakjan/projects/visual-quality-control/artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738/tensorrt_fp32_20261003_170149_465700",
+        "engine_sha256": "2333cd786a01d87ffbe69207b4d01dfbebb8fddfbfc5d3f9d3c840d27a2c7eca",
+        "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+        "tensorrt_version": "10.13.3.9.post1",
+        "optimization_profile": {
+          "min": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "opt": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "max": [
+            8,
+            3,
+            256,
+            256
+          ]
+        }
+      }
+    },
+    "tensorrt_separable": {
+      "backend": "tensorrt",
+      "device": "cuda:0",
+      "precision_policy": "ieee",
+      "torch_precision": {
+        "global": "ieee",
+        "matmul": "ieee",
+        "convolution": "ieee"
+      },
+      "blur_backend": "separable_1d",
+      "blur_class": "SeparableGaussianBlur2d",
+      "feature_extractor_class": "TensorRTCudaFeatureExtractor",
+      "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+      "threshold": 32.44375991821289,
+      "decision_rule": "score > threshold",
+      "image_size": 256,
+      "artifact": {
+        "format": "tensorrt_plan",
+        "directory": "/home/jakjan/projects/visual-quality-control/artifacts/runs/patchcore_20261003_135714_557111/exports/features_onnx_20261003_162059_929738/tensorrt_fp32_20261003_170149_465700",
+        "engine_sha256": "2333cd786a01d87ffbe69207b4d01dfbebb8fddfbfc5d3f9d3c840d27a2c7eca",
+        "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+        "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+        "tensorrt_version": "10.13.3.9.post1",
+        "optimization_profile": {
+          "min": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "opt": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "max": [
+            8,
+            3,
+            256,
+            256
+          ]
+        }
+      }
+    }
+  },
+  "parity_report_sha256": "9e7c5db8738c10df21aeec60da7b340967024111ef8f155567683815d375e25c",
+  "benchmark_script_sha256": "70fa338f3cb299d45c1c6ea363d68435e723360a8c2c75e9c5e86d346154460a",
+  "timing_helpers_sha256": "fc28a3d49f2796c8c965789075b8c1adf8c391acea1a6c7c24da26949a12767a",
+  "scope": "Prepared CPU RGB batch -> H2D -> normalization -> complete PatchCore -> scores, labels and maps on CPU",
+  "excluded": [
+    "model loading",
+    "disk I/O",
+    "decoding",
+    "resizing",
+    "CPU batch creation"
+  ],
+  "input_paths": [
+    "test/broken_large/000.png",
+    "test/broken_large/001.png",
+    "test/broken_large/002.png",
+    "test/broken_large/003.png",
+    "test/broken_large/004.png",
+    "test/broken_large/005.png",
+    "test/broken_large/006.png",
+    "test/broken_large/007.png",
+    "test/broken_large/008.png",
+    "test/broken_large/009.png",
+    "test/broken_large/010.png",
+    "test/broken_large/011.png",
+    "test/broken_large/012.png",
+    "test/broken_large/013.png",
+    "test/broken_large/014.png",
+    "test/broken_large/015.png",
+    "test/broken_large/016.png",
+    "test/broken_large/017.png",
+    "test/broken_large/018.png",
+    "test/broken_large/019.png",
+    "test/broken_small/000.png",
+    "test/broken_small/001.png",
+    "test/broken_small/002.png",
+    "test/broken_small/003.png",
+    "test/broken_small/004.png",
+    "test/broken_small/005.png",
+    "test/broken_small/006.png",
+    "test/broken_small/007.png",
+    "test/broken_small/008.png",
+    "test/broken_small/009.png",
+    "test/broken_small/010.png",
+    "test/broken_small/011.png",
+    "test/broken_small/012.png",
+    "test/broken_small/013.png",
+    "test/broken_small/014.png",
+    "test/broken_small/015.png",
+    "test/broken_small/016.png",
+    "test/broken_small/017.png",
+    "test/broken_small/018.png",
+    "test/broken_small/019.png",
+    "test/broken_small/020.png",
+    "test/broken_small/021.png",
+    "test/contamination/000.png",
+    "test/contamination/001.png",
+    "test/contamination/002.png",
+    "test/contamination/003.png",
+    "test/contamination/004.png",
+    "test/contamination/005.png",
+    "test/contamination/006.png",
+    "test/contamination/007.png",
+    "test/contamination/008.png",
+    "test/contamination/009.png",
+    "test/contamination/010.png",
+    "test/contamination/011.png",
+    "test/contamination/012.png",
+    "test/contamination/013.png",
+    "test/contamination/014.png",
+    "test/contamination/015.png",
+    "test/contamination/016.png",
+    "test/contamination/017.png",
+    "test/contamination/018.png",
+    "test/contamination/019.png",
+    "test/contamination/020.png",
+    "test/good/000.png",
+    "test/good/001.png",
+    "test/good/002.png",
+    "test/good/003.png",
+    "test/good/004.png",
+    "test/good/005.png",
+    "test/good/006.png",
+    "test/good/007.png",
+    "test/good/008.png",
+    "test/good/009.png",
+    "test/good/010.png",
+    "test/good/011.png",
+    "test/good/012.png",
+    "test/good/013.png",
+    "test/good/014.png",
+    "test/good/015.png",
+    "test/good/016.png",
+    "test/good/017.png",
+    "test/good/018.png",
+    "test/good/019.png"
+  ],
+  "batch_construction": "Sequential; final batch wraps to the start.",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python": "3.10.12",
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "anomalib": "2.6.2",
+    "tensorrt-cu12": "10.13.3.9.post1"
+  },
+  "torch_cuda": "12.8",
+  "cudnn_version": 91900,
+  "torch_threads": 24,
+  "torch_interop_threads": 24,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": false,
+  "warmup_calls_per_configuration": 30,
+  "measured_calls_per_configuration": 120,
+  "order_seed": 42,
+  "order_method": "All six permutations repeated equally, then shuffled.",
+  "results": {
+    "1": {
+      "pytorch_original": {
+        "calls": 120,
+        "mean_batch_ms": 7.074552733333333,
+        "p50_batch_ms": 6.8426955,
+        "p95_batch_ms": 8.21397665,
+        "serial_images_per_second": 141.35169214136704,
+        "speedup_vs_pytorch_original": 1.0,
+        "speedup_vs_tensorrt_original": 0.5588888889098299
+      },
+      "tensorrt_original": {
+        "calls": 120,
+        "mean_batch_ms": 3.9538889166666666,
+        "p50_batch_ms": 3.771959,
+        "p95_batch_ms": 4.8670704,
+        "serial_images_per_second": 252.91555252974882,
+        "speedup_vs_pytorch_original": 1.7892644134518447,
+        "speedup_vs_tensorrt_original": 1.0
+      },
+      "tensorrt_separable": {
+        "calls": 120,
+        "mean_batch_ms": 2.9711125166666665,
+        "p50_batch_ms": 2.756277,
+        "p95_batch_ms": 3.85756645,
+        "serial_images_per_second": 336.5742611195063,
+        "speedup_vs_pytorch_original": 2.38111235897265,
+        "speedup_vs_tensorrt_original": 1.3307772406756884
+      }
+    },
+    "8": {
+      "pytorch_original": {
+        "calls": 120,
+        "mean_batch_ms": 25.722294691666665,
+        "p50_batch_ms": 25.745491,
+        "p95_batch_ms": 26.8165369,
+        "serial_images_per_second": 311.0142425431346,
+        "speedup_vs_pytorch_original": 1.0,
+        "speedup_vs_tensorrt_original": 0.8004406934452212
+      },
+      "tensorrt_original": {
+        "calls": 120,
+        "mean_batch_ms": 20.589171399999998,
+        "p50_batch_ms": 20.6728405,
+        "p95_batch_ms": 21.45749275,
+        "serial_images_per_second": 388.5537618089867,
+        "speedup_vs_pytorch_original": 1.2493117956008015,
+        "speedup_vs_tensorrt_original": 1.0
+      },
+      "tensorrt_separable": {
+        "calls": 120,
+        "mean_batch_ms": 12.610444516666666,
+        "p50_batch_ms": 12.789606,
+        "p95_batch_ms": 13.33988615,
+        "serial_images_per_second": 634.394766134275,
+        "speedup_vs_pytorch_original": 2.0397611406695972,
+        "speedup_vs_tensorrt_original": 1.6327078219001878
+      }
+    }
+  }
+}
