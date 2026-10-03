@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-10-03T17:55:12.753689+00:00",
+  "error_checks": [
+    {
+      "name": "empty_file",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Uploaded file is empty."
+      }
+    },
+    {
+      "name": "invalid_image",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "The uploaded file is not a readable image."
+      }
+    },
+    {
+      "name": "unsupported_format",
+      "expected_status": 415,
+      "actual_status": 415,
+      "response": {
+        "detail": "Supported image formats: PNG, JPEG."
+      }
+    },
+    {
+      "name": "file_too_large",
+      "expected_status": 413,
+      "actual_status": 413,
+      "response": {
+        "detail": "File exceeds the 10 MiB limit."
+      }
+    }
+  ],
+  "prediction_after_errors": {
+    "request_id": "f6dbfb2c-96d8-4d28-99d5-99a6cea67d3a",
+    "score": 31.41547203063965,
+    "threshold": 32.44375991821289,
+    "is_anomaly": false,
+    "decision_rule": "score > threshold",
+    "original_width": 900,
+    "original_height": 900,
+    "backend": "tensorrt",
+    "blur_backend": "separable_1d",
+    "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c"
+  },
+  "health_after_checks": {
+    "status": "ready",
+    "busy": false,
+    "backend": "tensorrt",
+    "blur_backend": "separable_1d",
+    "device": "cuda:0"
+  }
+}
