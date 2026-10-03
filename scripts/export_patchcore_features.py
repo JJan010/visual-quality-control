@@ -30,6 +30,7 @@ def sha256_file(path: Path) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", type=Path, required=True)
+    parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
 
     project_root = Path(__file__).resolve().parents[1]
@@ -64,7 +65,8 @@ def main() -> None:
     normalized = predictor.normalize(torch.stack(images)).contiguous()
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
-    output_dir = run_dir / "exports" / f"features_onnx_{stamp}"
+    output_dir = (args.output_dir.resolve() if args.output_dir else
+                  run_dir / "exports" / f"features_onnx_{stamp}")
     output_dir.mkdir(parents=True, exist_ok=False)
     onnx_path = output_dir / "feature_extractor.onnx"
 
@@ -156,13 +158,10 @@ def main() -> None:
                 max_difference = float(difference.max())
                 mean_difference = float(difference.mean())
 
-                np.testing.assert_allclose(
-                    result,
-                    ref,
-                    rtol=RTOL,
-                    atol=ATOL,
-                    err_msg=f"Batch {batch_size}, output {name}",
-                )
+                # CPU feature parity is diagnostic, not pipeline acceptance.
+                # Keep the original tolerance and record every violation.
+                outside = difference > ATOL + RTOL * np.abs(ref.astype(np.float64))
+                feature_close = not bool(outside.any())
 
                 comparisons.append({
                     "batch_size": batch_size,
@@ -170,6 +169,8 @@ def main() -> None:
                     "shape": list(result.shape),
                     "max_absolute_difference": max_difference,
                     "mean_absolute_difference": mean_difference,
+                    "outside_tolerance": int(outside.sum()),
+                    "feature_parity_passed": feature_close,
                 })
 
                 print(
@@ -197,7 +198,10 @@ def main() -> None:
         )
 
     report = {
-        "status": "passed",
+        "schema_version": 1,
+        "status": "exported_pending_pipeline_validation",
+        "model_config": predictor.config,
+        "feature_parity_passed": all(c["feature_parity_passed"] for c in comparisons),
         "checkpoint_sha256": sha256_file(run_dir / "model.pt"),
         "onnx_sha256": sha256_file(onnx_path),
         "onnx_ir_version": graph.ir_version,
@@ -234,7 +238,7 @@ def main() -> None:
 
     print("Conv execution providers:", sorted(conv_providers))
     print("Output directory:", output_dir)
-    print("PATCHCORE FEATURE EXPORT: OK")
+    print("ONNX EXPORTED — pipeline validation required before runtime use.")
 
 
 if __name__ == "__main__":

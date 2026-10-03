@@ -1,0 +1,87 @@
+{
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "build_script_sha256": "13704d4855d8819d5e4cf37471c7c9b3846910150ba9bd88319371ffa9f0bc97",
+  "onnx_validation_sha256": "94e0739342902ab3636b83cf6b4380d5ac8baef8dd3a032126b09af61698a9e7",
+  "tensorrt_version": "10.13.3.9.post1",
+  "torch_version": "2.11.0+cu128",
+  "torch_cuda": "12.8",
+  "python": "3.10.12",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "compute_capability": [
+    12,
+    0
+  ],
+  "precision": "fp32_tf32_off",
+  "tf32_enabled": false,
+  "fp16_enabled": false,
+  "bf16_enabled": false,
+  "int8_enabled": false,
+  "workspace_limit_bytes": 1073741824,
+  "optimization_profile": {
+    "min": [
+      1,
+      3,
+      256,
+      256
+    ],
+    "opt": [
+      1,
+      3,
+      256,
+      256
+    ],
+    "max": [
+      8,
+      3,
+      256,
+      256
+    ]
+  },
+  "network_layers_before_build": 97,
+  "status": "built_and_deserialized",
+  "engine_sha256": "f64dde243979592b8c00e217437aadb241169dd93dced7e5d4194e34dfe4793b",
+  "engine_size_bytes": 146650924,
+  "build_seconds": 6.583888858000137,
+  "io_tensors": [
+    {
+      "name": "images",
+      "mode": "TensorIOMode.INPUT",
+      "dtype": "DataType.FLOAT",
+      "shape": [
+        -1,
+        3,
+        256,
+        256
+      ],
+      "format": "TensorFormat.LINEAR"
+    },
+    {
+      "name": "layer2",
+      "mode": "TensorIOMode.OUTPUT",
+      "dtype": "DataType.FLOAT",
+      "shape": [
+        -1,
+        512,
+        32,
+        32
+      ],
+      "format": "TensorFormat.LINEAR"
+    },
+    {
+      "name": "layer3",
+      "mode": "TensorIOMode.OUTPUT",
+      "dtype": "DataType.FLOAT",
+      "shape": [
+        -1,
+        1024,
+        16,
+        16
+      ],
+      "format": "TensorFormat.LINEAR"
+    }
+  ],
+  "numerical_validation": "pending",
+  "performance_validation": "pending"
+}

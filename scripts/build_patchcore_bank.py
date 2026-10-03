@@ -1,3 +1,4 @@
+import argparse
 import json
 import random
 from datetime import datetime, timezone
@@ -16,6 +17,9 @@ from visual_quality.data.bottle import BottleNormalDataset
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
     project_root = Path(__file__).resolve().parents[1]
     config_path = project_root / "configs/patchcore_baseline.json"
     split_path = project_root / "configs/splits/bottle_v1.json"
@@ -37,7 +41,8 @@ def main():
     device = torch.device("cuda")
 
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
-    run_dir = project_root / "artifacts/runs" / f"patchcore_{timestamp}"
+    run_dir = (args.output_dir.resolve() if args.output_dir else
+               project_root / "artifacts/runs" / f"patchcore_{timestamp}")
     run_dir.mkdir(parents=True, exist_ok=False)
 
     # Zachowujemy konfigurację i podział użyte w tym uruchomieniu.

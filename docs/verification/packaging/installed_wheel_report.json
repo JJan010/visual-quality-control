@@ -1,0 +1,36 @@
+{
+  "import_origin": "visual_quality/api/app.py",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 7461,
+      "sha256": "8959fb392addbb2f6e979749febf030d2239fab5a4a5b475a44b4eee46a93450"
+    },
+    {
+      "path": "/assets/index.html",
+      "status": 200,
+      "bytes": 7461,
+      "sha256": "8959fb392addbb2f6e979749febf030d2239fab5a4a5b475a44b4eee46a93450"
+    },
+    {
+      "path": "/assets/styles.css",
+      "status": 200,
+      "bytes": 12916,
+      "sha256": "8b6cd4b7b09dac78cb50449e58f25448ec18804b3d022fa95169a79dc5e3460a"
+    },
+    {
+      "path": "/assets/app.js",
+      "status": 200,
+      "bytes": 13833,
+      "sha256": "b97101f6d69e65f79f4edf05eacfd676e4c0fcfa7757d2dc2cabf4080584ae6b"
+    }
+  ],
+  "status": "passed",
+  "wheel": "visual_quality_control-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "3d5a82b3a404c9aa7f80ad056aa71a15bf93dd7239ec75f04e6af8f0284d5f7e",
+  "scope": "installed package imports and in-process ASGI GUI requests",
+  "dependencies": "reused from the active environment",
+  "lifespan_started": false,
+  "gpu_inference_checked": false
+}

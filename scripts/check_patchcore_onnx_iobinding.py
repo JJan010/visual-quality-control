@@ -14,6 +14,7 @@ from visual_quality.inference.onnx_features import (
     sha256_file,
 )
 from visual_quality.inference.patchcore import PatchcorePredictor
+from visual_quality.inference.export_validation import evidence_hashes
 
 
 ATOL = 1e-4
@@ -42,16 +43,18 @@ def main():
     run_dir = args.run_dir.resolve()
     export_dir = args.export_dir.resolve()
 
-    summary = json.loads(
-        (
-            root / "docs/experiments/patchcore_onnx_export"
-            / "validation_summary.json"
-        ).read_text(encoding="utf-8")
-    )
-    if summary["status"] != "passed_for_tested_pipeline_configuration":
-        raise RuntimeError("Missing reviewed pipeline validation.")
-    if sha256_file(run_dir / "model.pt") != summary["checkpoint_sha256"]:
-        raise RuntimeError("Checkpoint does not match the validation.")
+    for name in ("pipeline_validation.json", "runtime_manifest.json"):
+        if (export_dir / name).exists():
+            raise RuntimeError(f"Approval already exists: {name}. Use a new export directory.")
+    export_check = json.loads((export_dir / "export_check.json").read_text(encoding="utf-8"))
+    if export_check.get("status") != "exported_pending_pipeline_validation":
+        raise RuntimeError("Expected a candidate export from the updated exporter.")
+    checkpoint_sha = sha256_file(run_dir / "model.pt")
+    onnx_sha = sha256_file(export_dir / "feature_extractor.onnx")
+    if (checkpoint_sha != export_check["checkpoint_sha256"]
+            or onnx_sha != export_check["onnx_sha256"]):
+        raise RuntimeError("Candidate artifacts differ from the export report.")
+    hashes_before = evidence_hashes(run_dir, export_dir)
 
     torch.backends.fp32_precision = "ieee"
     torch.backends.cuda.matmul.fp32_precision = "ieee"
@@ -61,13 +64,17 @@ def main():
     predictor = PatchcorePredictor(
         run_dir, device="cuda:0", blur_backend="original_2d"
     )
-    if predictor.threshold != summary["threshold"]:
-        raise RuntimeError("Threshold differs from the reviewed experiment.")
+    if predictor.config != export_check["model_config"]:
+        raise RuntimeError("Candidate configuration differs from the checkpoint.")
+    baseline = json.loads((run_dir / "evaluation/metrics.json").read_text(encoding="utf-8"))
+    if (baseline["checkpoint_sha256"] != checkpoint_sha
+            or baseline["threshold"] != predictor.threshold):
+        raise RuntimeError("Saved evaluation belongs to another model or threshold.")
 
     original_extractor = predictor.model.feature_extractor
     adapter = OnnxCudaFeatureExtractor(
         export_dir / "feature_extractor.onnx",
-        expected_sha256=summary["onnx_sha256"],
+        expected_sha256=onnx_sha,
         device="cuda:0",
     )
 
@@ -107,6 +114,7 @@ def main():
                 "batch_size": batch_size,
                 "layer": name,
                 "max_difference": difference,
+                "parity_passed": True,
             })
             print(
                 f"I/O Binding | B={batch_size} | {name} | "
@@ -195,6 +203,8 @@ def main():
             result = {
                 "batch_size": batch_size,
                 "checked_images": len(checked_paths),
+                "score_parity_passed": True,
+                "map_parity_passed": True,
                 "max_score_difference": max_score_difference,
                 "max_map_difference": max_map_difference,
                 "changed_decisions": changed_decisions,
@@ -207,7 +217,12 @@ def main():
 
     report = {
         "status": "passed",
-        "checkpoint_sha256": summary["checkpoint_sha256"],
+        "schema_version": 1,
+        "kind": "patchcore_onnx_pipeline",
+        "checkpoint_sha256": checkpoint_sha,
+        "model_config": predictor.config,
+        "evidence_hashes": hashes_before,
+        "feature_parity_passed": export_check["feature_parity_passed"],
         "onnx_sha256": adapter.onnx_sha256,
         "gpu": torch.cuda.get_device_name(0),
         "torch_precision": "ieee",
@@ -220,6 +235,9 @@ def main():
         "pipeline_checks": pipeline_checks,
     }
 
+    if evidence_hashes(run_dir, export_dir) != hashes_before:
+        raise RuntimeError("Inputs changed during validation; approval was not published.")
+
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
     output_dir = run_dir / "verification" / f"onnx_iobinding_{stamp}"
     output_dir.mkdir(parents=True, exist_ok=False)
@@ -228,6 +246,21 @@ def main():
         encoding="utf-8",
     )
 
+    # Publish only after all numerical, decision and dataset checks passed.
+    # The runtime manifest is written last and points to this exact report.
+    report_path = export_dir / "pipeline_validation.json"
+    report_path.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    manifest = {
+        "schema_version": 1,
+        "checkpoint_sha256": checkpoint_sha,
+        "onnx_sha256": adapter.onnx_sha256,
+        "model_config": predictor.config,
+        "pipeline_validation_sha256": sha256_file(report_path),
+    }
+    (export_dir / "runtime_manifest.json").write_text(
+        json.dumps(manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+    )
+    print("Approved export:", export_dir)
     print("Output directory:", output_dir)
     print("PATCHCORE ONNX I/O BINDING: OK")
 

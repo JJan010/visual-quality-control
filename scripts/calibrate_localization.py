@@ -1,5 +1,6 @@
 """Kalibracja progu mapy na poprawnych obrazach walidacyjnych."""
 
+import argparse
 import csv
 import json
 from datetime import datetime, timezone
@@ -13,8 +14,13 @@ from visual_quality.inference.runtime import load_predictor
 
 
 def main() -> None:
-    config_path = Path("configs/runtime/patchcore_tensorrt.json")
-    dataset_root = Path("data/mvtec_ad/bottle").resolve()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=Path, default=Path("configs/runtime/patchcore_tensorrt.json"))
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    config_path = args.config.expanduser().resolve()
+    if args.output_dir and args.output_dir.exists():
+        raise RuntimeError("Output directory already exists; calibration was preserved.")
 
     predictor = load_predictor(config_path)
 
@@ -22,6 +28,8 @@ def main() -> None:
     split_path = predictor.run_dir / "split.json"
     split = json.loads(split_path.read_text(encoding="utf-8"))
 
+    project_root = Path(__file__).resolve().parents[1]
+    dataset_root = (project_root / split["dataset_root"]).resolve()
     paths = split["validation"]
     train_paths = set(split["train"])
 
@@ -67,9 +75,8 @@ def main() -> None:
     alarms = int(np.count_nonzero(maxima > threshold))
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
-    output_dir = (
-        predictor.run_dir / "localization_calibration" / stamp
-    )
+    output_dir = (args.output_dir.resolve() if args.output_dir else
+                  predictor.run_dir / "localization_calibration" / stamp)
     output_dir.mkdir(parents=True, exist_ok=False)
 
     report = {

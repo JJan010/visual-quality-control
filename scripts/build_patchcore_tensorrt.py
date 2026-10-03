@@ -9,6 +9,7 @@ import torch
 import tensorrt as trt
 
 from visual_quality.inference.onnx_features import sha256_file
+from visual_quality.inference.export_validation import load_validated_export
 
 
 def save_json(path, data):
@@ -23,6 +24,7 @@ def main():
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--export-dir", type=Path, required=True)
     parser.add_argument("--opt-batch", type=int, default=1)
+    parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
 
     if not 1 <= args.opt_batch <= 8:
@@ -33,28 +35,13 @@ def main():
     torch.cuda.set_device(0)
     torch.cuda.init()
 
-    root = Path(__file__).resolve().parents[1]
     run_dir = args.run_dir.resolve()
     export_dir = args.export_dir.resolve()
     onnx_path = export_dir / "feature_extractor.onnx"
 
-    validation = json.loads(
-        (
-            root / "docs/experiments/patchcore_onnx_export"
-            / "validation_summary.json"
-        ).read_text(encoding="utf-8")
-    )
-
-    if validation["status"] != "passed_for_tested_pipeline_configuration":
-        raise RuntimeError("STOP: brak zatwierdzonego porównania ONNX.")
-
-    checkpoint_sha = sha256_file(run_dir / "model.pt")
-    onnx_sha = sha256_file(onnx_path)
-
-    if checkpoint_sha != validation["checkpoint_sha256"]:
-        raise RuntimeError("STOP: checkpoint różni się od zweryfikowanego.")
-    if onnx_sha != validation["onnx_sha256"]:
-        raise RuntimeError("STOP: ONNX różni się od zweryfikowanego.")
+    validation = load_validated_export(run_dir, export_dir)
+    checkpoint_sha = validation["checkpoint_sha256"]
+    onnx_sha = validation["onnx_sha256"]
 
     logger = trt.Logger(trt.Logger.INFO)
     builder = trt.Builder(logger)
@@ -149,13 +136,15 @@ def main():
         raise RuntimeError("STOP: nie udało się dodać profilu.")
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
-    output_dir = export_dir / f"tensorrt_fp32_{stamp}"
+    output_dir = (args.output_dir.resolve() if args.output_dir else
+                  export_dir / f"tensorrt_fp32_{stamp}")
     output_dir.mkdir(parents=True, exist_ok=False)
 
     build_config = {
         "checkpoint_sha256": checkpoint_sha,
         "onnx_sha256": onnx_sha,
         "build_script_sha256": sha256_file(Path(__file__)),
+        "onnx_validation_sha256": sha256_file(export_dir / "pipeline_validation.json"),
         "tensorrt_version": trt.__version__,
         "torch_version": str(torch.__version__),
         "torch_cuda": torch.version.cuda,

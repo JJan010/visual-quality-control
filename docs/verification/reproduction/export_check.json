@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "status": "exported_pending_pipeline_validation",
+  "model_config": {
+    "seed": 42,
+    "backbone": "wide_resnet50_2",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "image_size": 256,
+    "batch_size": 8,
+    "coreset_sampling_ratio": 0.01,
+    "num_neighbors": 9,
+    "normalization_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "normalization_std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "feature_parity_passed": false,
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "onnx_ir_version": 10,
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "anomalib": "2.6.2",
+    "onnx": "1.23.1",
+    "onnxscript": "0.7.2",
+    "onnxruntime-gpu": "1.23.2"
+  },
+  "input": {
+    "name": "images",
+    "dtype": "float32",
+    "shape": [
+      "batch",
+      3,
+      256,
+      256
+    ],
+    "intended_batch_range": [
+      1,
+      8
+    ],
+    "normalization_in_graph": false,
+    "normalization_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "normalization_std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "sample_paths": [
+    "train/good/002.png",
+    "train/good/003.png",
+    "train/good/005.png",
+    "train/good/013.png",
+    "train/good/015.png",
+    "train/good/021.png",
+    "train/good/030.png",
+    "train/good/036.png"
+  ],
+  "reference_device": "cpu",
+  "runtime_device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "ort_use_tf32": false,
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "conv_execution_providers": [
+    "CUDAExecutionProvider"
+  ],
+  "comparisons": [
+    {
+      "batch_size": 1,
+      "output": "layer2",
+      "shape": [
+        1,
+        512,
+        32,
+        32
+      ],
+      "max_absolute_difference": 0.0006198883056640625,
+      "mean_absolute_difference": 6.07111596675038e-06,
+      "outside_tolerance": 191,
+      "feature_parity_passed": false
+    },
+    {
+      "batch_size": 1,
+      "output": "layer3",
+      "shape": [
+        1,
+        1024,
+        16,
+        16
+      ],
+      "max_absolute_difference": 0.00029206275939941406,
+      "mean_absolute_difference": 3.037985077530836e-06,
+      "outside_tolerance": 7,
+      "feature_parity_passed": false
+    },
+    {
+      "batch_size": 8,
+      "output": "layer2",
+      "shape": [
+        8,
+        512,
+        32,
+        32
+      ],
+      "max_absolute_difference": 0.0009753704071044922,
+      "mean_absolute_difference": 6.071739087306618e-06,
+      "outside_tolerance": 1631,
+      "feature_parity_passed": false
+    },
+    {
+      "batch_size": 8,
+      "output": "layer3",
+      "shape": [
+        8,
+        1024,
+        16,
+        16
+      ],
+      "max_absolute_difference": 0.00043594837188720703,
+      "mean_absolute_difference": 2.646449692748345e-06,
+      "outside_tolerance": 48,
+      "feature_parity_passed": false
+    }
+  ],
+  "profile": "ort_profile_2026-10-03_22-05-41.json"
+}

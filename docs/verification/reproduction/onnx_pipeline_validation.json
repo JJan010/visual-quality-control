@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "schema_version": 1,
+  "kind": "patchcore_onnx_pipeline",
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "model_config": {
+    "seed": 42,
+    "backbone": "wide_resnet50_2",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "image_size": 256,
+    "batch_size": 8,
+    "coreset_sampling_ratio": 0.01,
+    "num_neighbors": 9,
+    "normalization_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "normalization_std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "evidence_hashes": {
+    "checkpoint": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+    "calibration": "9cd0044aef3e8ba56a472f3f44b853ddb77addd33da8f2e1cafe6833ac559292",
+    "split": "6499957ec1ba407925b969d99eb8412cb89dda55fd550e51e1c19de0706701b9",
+    "baseline_metrics": "5c8ef540cef1bb4feb6bf3162a4d05dcac800b6affc67a00eb5baa91b2bac5b2",
+    "baseline_scores": "871b90c323f5f21af97e6ff626adc9cd4c6db2ec5b8ee11b9f4fc8b2fe87c181",
+    "onnx": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+    "export_check": "00c8f2923a51647113c5bd15f290996a5d4bdb593a2571c477c6a4388419bf1d"
+  },
+  "feature_parity_passed": false,
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "torch_precision": "ieee",
+  "ort_use_tf32": false,
+  "blur_backend": "original_2d",
+  "threshold": 32.44375991821289,
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "binding_checks": [
+    {
+      "batch_size": 1,
+      "layer": "layer2",
+      "max_difference": 0.0,
+      "parity_passed": true
+    },
+    {
+      "batch_size": 1,
+      "layer": "layer3",
+      "max_difference": 0.0,
+      "parity_passed": true
+    },
+    {
+      "batch_size": 3,
+      "layer": "layer2",
+      "max_difference": 0.0,
+      "parity_passed": true
+    },
+    {
+      "batch_size": 3,
+      "layer": "layer3",
+      "max_difference": 0.0,
+      "parity_passed": true
+    },
+    {
+      "batch_size": 8,
+      "layer": "layer2",
+      "max_difference": 0.0,
+      "parity_passed": true
+    },
+    {
+      "batch_size": 8,
+      "layer": "layer3",
+      "max_difference": 0.0,
+      "parity_passed": true
+    }
+  ],
+  "pipeline_checks": [
+    {
+      "batch_size": 1,
+      "checked_images": 83,
+      "score_parity_passed": true,
+      "map_parity_passed": true,
+      "max_score_difference": 0.000186920166015625,
+      "max_map_difference": 0.000518798828125,
+      "changed_decisions": 0,
+      "changed_decisions_vs_saved": 0
+    },
+    {
+      "batch_size": 8,
+      "checked_images": 83,
+      "score_parity_passed": true,
+      "map_parity_passed": true,
+      "max_score_difference": 0.0001354217529296875,
+      "max_map_difference": 0.00039768218994140625,
+      "changed_decisions": 0,
+      "changed_decisions_vs_saved": 0
+    }
+  ]
+}

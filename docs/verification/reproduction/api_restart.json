@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "scope": "two sequential real-server lifecycles; not a load or disconnect test",
+  "port": 18080,
+  "calibration_sha256": "b0f949af64023ad08970772ef2d17dc4147add1a67692552c7b9412bf756dc15",
+  "script_sha256": "515eaa5baf4c6186942fa11d5d86069c778863e65afdd0173c9a38f82580cba3",
+  "app_sha256": "573de6eacdc95865a93013e1166fd52a4eb2f3dde9020ac8568b809d81b77cd0",
+  "cycles": [
+    {
+      "cycle": 1,
+      "predictions": [
+        {
+          "image": "broken_large/011.png",
+          "score": 54.926761627197266,
+          "is_anomaly": true,
+          "region_pixels": 8275,
+          "request_id": "f2e18e6f-67fa-4260-97ae-356e8b736066"
+        },
+        {
+          "image": "good/017.png",
+          "score": 31.41547203063965,
+          "is_anomaly": false,
+          "region_pixels": 0,
+          "request_id": "551f7afb-ee98-4ee2-847f-ee662f3cd59b"
+        }
+      ],
+      "pid": 12364,
+      "startup_health": {
+        "status": "ready",
+        "busy": false,
+        "backend": "tensorrt",
+        "blur_backend": "separable_1d",
+        "device": "cuda:0"
+      },
+      "shutdown": {
+        "graceful_signal_sent": true,
+        "forced": false,
+        "returncode": 0,
+        "completion_logged": true
+      }
+    },
+    {
+      "cycle": 2,
+      "predictions": [
+        {
+          "image": "broken_large/011.png",
+          "score": 54.926761627197266,
+          "is_anomaly": true,
+          "region_pixels": 8275,
+          "request_id": "d612f3c0-3033-414b-8834-55f1ef9dc7f6"
+        },
+        {
+          "image": "good/017.png",
+          "score": 31.41547203063965,
+          "is_anomaly": false,
+          "region_pixels": 0,
+          "request_id": "4e6f4c5b-0053-4ac2-b8ce-6be2481f81ec"
+        }
+      ],
+      "pid": 12464,
+      "startup_health": {
+        "status": "ready",
+        "busy": false,
+        "backend": "tensorrt",
+        "blur_backend": "separable_1d",
+        "device": "cuda:0"
+      },
+      "shutdown": {
+        "graceful_signal_sent": true,
+        "forced": false,
+        "returncode": 0,
+        "completion_logged": true
+      }
+    }
+  ],
+  "restart_comparisons": [
+    {
+      "image": "broken_large/011.png",
+      "score_difference": 0.0,
+      "region_pixel_count_difference": 0
+    },
+    {
+      "image": "good/017.png",
+      "score_difference": 0.0,
+      "region_pixel_count_difference": 0
+    }
+  ]
+}

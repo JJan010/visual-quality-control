@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "checkpoint_sha256": "5661a9aba7e4b58fcb6ec1fd2ccc30dd5a312a2914543d70ee9e1f9696d8b84c",
+  "onnx_sha256": "6a7c97e209de59fe1c0e47178d86621f4403951e8908accd0489b1bd11eb0722",
+  "model_config": {
+    "seed": 42,
+    "backbone": "wide_resnet50_2",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "image_size": 256,
+    "batch_size": 8,
+    "coreset_sampling_ratio": 0.01,
+    "num_neighbors": 9,
+    "normalization_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "normalization_std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "pipeline_validation_sha256": "94e0739342902ab3636b83cf6b4380d5ac8baef8dd3a032126b09af61698a9e7"
+}

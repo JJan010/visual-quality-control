@@ -62,6 +62,13 @@ def create_feature_backend(
         if manifest["model_config"] != model_config:
             raise RuntimeError("ONNX and checkpoint configurations differ.")
 
+        # New manifests bind runtime loading to the validated export.
+        # Legacy manifests retain their existing identity checks.
+        if "pipeline_validation_sha256" in manifest:
+            from visual_quality.inference.export_validation import load_validated_export
+            load_validated_export(export_dir=export_dir, checkpoint_sha256=checkpoint_sha256,
+                                  model_config=model_config)
+
         # Optional runtime dependencies are imported only when selected.
         from visual_quality.inference.onnx_features import (
             OnnxCudaFeatureExtractor,
