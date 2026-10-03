@@ -1,0 +1,21 @@
+{
+  "training_images": 167,
+  "all_embeddings_shape": [
+    171008,
+    1536
+  ],
+  "memory_bank_shape": [
+    1710,
+    1536
+  ],
+  "memory_bank_mib": 10.01953125,
+  "extraction_seconds": 3.369430133001515,
+  "coreset_seconds": 5.238340714000515,
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "anomalib": "2.6.2",
+    "timm": "1.0.30"
+  }
+}

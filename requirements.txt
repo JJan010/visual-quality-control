@@ -2,3 +2,5 @@ numpy
 pillow
 opencv-python-headless
 matplotlib
+anomalib==2.6.2
+scikit-learn==1.7.2
